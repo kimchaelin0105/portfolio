@@ -1,0 +1,12 @@
+/* 사용자가 지정한 아리따 돋움 Medium 웹폰트 */
+@font-face {
+    font-family: 'ArittaDodum';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Arita-dotum-Medium.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-arita: 'ArittaDodum', sans-serif;
+}
+
