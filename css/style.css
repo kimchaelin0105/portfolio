@@ -364,7 +364,7 @@ a:focus-visible {
     position: relative
 }
 
-/* 정지된 가로 트랙: 오른쪽 카드는 시안처럼 화면 밖으로 이어집니다. */
+/* 한 줄 트랙: 자동 스크롤 위치는 Js/script.js에서 제어합니다. */
 .project-rail {
     display: flex;
     flex-wrap: nowrap;
@@ -565,6 +565,16 @@ a:focus-visible {
     width: max-content;
     gap: 32px;
     padding: 0 var(--gutter) 20px
+}
+
+.auto-scroll-track {
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auto-scroll-track {
+        will-change: auto;
+    }
 }
 
 .visual-card {
