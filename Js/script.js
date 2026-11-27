@@ -148,6 +148,104 @@ renderWorks("#brand-two", portfolioContent.brandTwo, "project");
 renderWorks("#visual-list", portfolioContent.visual, "visual");
 renderWorks("#reel-list", portfolioContent.reels, "reel");
 
+// 자동 스크롤 속도: 초당 이동할 px 값입니다.
+const autoScrollSettings = [
+  { selector: "#brand-one", works: portfolioContent.brandOne, speed: 24 },
+  { selector: "#brand-two", works: portfolioContent.brandTwo, speed: 24 },
+  { selector: "#visual-list", works: portfolioContent.visual, speed: 22 },
+];
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const scrollingRails = [];
+
+function wrapScrollDistance(distance, cycleWidth) {
+  return cycleWidth > 0 ? ((distance % cycleWidth) + cycleWidth) % cycleWidth : 0;
+}
+
+function setupAutoScroll({ selector, works, speed }) {
+  const rail = $(selector);
+  const originals = Array.from(rail.children);
+  if (originals.length < 2) return;
+  const section = rail.closest("section");
+  const state = { rail, speed, originals, cycleWidth: 0, distance: 0, hovered: false, focused: false, visible: true, holdUntil: 0 };
+
+  function duplicateCard(original, index) {
+    const copy = original.cloneNode(true);
+    copy.classList.add("auto-scroll-copy");
+    copy.removeAttribute("id");
+    copy.setAttribute("aria-hidden", "true");
+    copy.tabIndex = -1;
+    copy.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+    copy.querySelectorAll("a, button, [tabindex]").forEach(node => { node.tabIndex = -1; });
+    // cloneNode는 팝업 클릭 이벤트를 복사하지 않으므로 다시 연결합니다.
+    if (copy.tagName === "BUTTON") copy.addEventListener("click", () => openWork(works[index], copy));
+    copy.querySelectorAll("video").forEach(video => { video.muted = true; video.defaultMuted = true; });
+    return copy;
+  }
+
+  const leading = document.createDocumentFragment();
+  originals.forEach((card, index) => leading.append(duplicateCard(card, index)));
+  rail.prepend(leading);
+  // 앞뒤에 동일한 카드를 이어 붙여 처음과 끝 사이에 빈 구간이 생기지 않습니다.
+  const initialCycle = originals.reduce((sum, card) => sum + card.getBoundingClientRect().width, 0);
+  const extraSets = Math.max(2, Math.ceil(window.innerWidth / initialCycle) + 1);
+  for (let set = 0; set < extraSets; set++) originals.forEach((card, index) => rail.append(duplicateCard(card, index)));
+  rail.classList.add("auto-scroll-track");
+
+  function measure() {
+    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+    state.cycleWidth = originals.reduce((sum, card) => sum + card.getBoundingClientRect().width + gap, 0);
+    state.distance = wrapScrollDistance(state.distance, state.cycleWidth);
+    paint();
+  }
+  function paint() {
+    rail.style.transform = `translate3d(${-state.cycleWidth - state.distance}px, 0, 0)`;
+  }
+  state.paint = paint;
+  measure();
+  new ResizeObserver(measure).observe(rail);
+  new IntersectionObserver(([entry]) => { state.visible = entry.isIntersecting; }).observe(section);
+  rail.addEventListener("pointerenter", event => { if (event.pointerType !== "touch") state.hovered = true; });
+  rail.addEventListener("pointerleave", () => { state.hovered = false; });
+  rail.addEventListener("focusin", event => {
+    state.focused = true;
+    const index = originals.findIndex(card => card === event.target || card.contains(event.target));
+    if (index < 0) return;
+    const box = originals[index].getBoundingClientRect();
+    if (box.left < 16 || box.right > window.innerWidth - 16) {
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+      state.distance = originals.slice(0, index).reduce((sum, card) => sum + card.getBoundingClientRect().width + gap, 0);
+      paint();
+    }
+  });
+  rail.addEventListener("focusout", event => { state.focused = rail.contains(event.relatedTarget); });
+  rail.addEventListener("pointerdown", event => { if (event.pointerType === "touch") state.holdUntil = Infinity; });
+  for (const name of ["pointerup", "pointercancel"]) rail.addEventListener(name, () => { state.holdUntil = performance.now() + 3000; });
+  scrollingRails.push(state);
+}
+
+autoScrollSettings.forEach(setupAutoScroll);
+let previousScrollTime;
+function animateRails(now) {
+  const elapsed = previousScrollTime === undefined ? 0 : Math.min((now - previousScrollTime) / 1000, 0.05);
+  previousScrollTime = now;
+  for (const state of scrollingRails) {
+    if (document.hidden || reducedMotion.matches || dialog.open || !state.visible || state.hovered || state.focused || now < state.holdUntil) continue;
+    state.distance = wrapScrollDistance(state.distance + state.speed * elapsed, state.cycleWidth);
+    state.paint();
+  }
+  requestAnimationFrame(animateRails);
+}
+requestAnimationFrame(animateRails);
+
+// 반복 카드의 영상도 화면에 보일 때만 재생합니다.
+const coverVisibility = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (entry.isIntersecting && !reducedMotion.matches) entry.target.play().catch(() => {});
+    else entry.target.pause();
+  }
+});
+document.querySelectorAll(".project-cover-video").forEach(video => coverVisibility.observe(video));
+
 const menuButton = $(".menu-toggle");
 function closeMenu() {
   $("#navigation").classList.remove("is-open");
