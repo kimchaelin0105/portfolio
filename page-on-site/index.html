@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1360">
+  <!-- 브라우저 뷰포트 너비를 1360px로 고정하여 페이지를 그리도록 설정 -->
+  <meta name="theme-color" content="#fffaf0">
+  <meta name="description" content="Page On — a little cafe for slow mornings, good coffee, and curious cats.">
+  <title>Page On</title>
+
+  <link rel="icon" type="image/png" sizes="36x36" href="assets/images/main/favicon.png">
+
+  <!-- webfont 연결-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- font-family: "Abhaya Libre", serif; -->
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous" />
+  <link rel="preload" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" />
+  <!-- font-family: "Wanted Sans Variable", "Wanted Sans", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; -->
+
+  <!-- AOS CSS 연결 -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- css 연결 -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/menu-popup.css">
+  <script src="js/menu-popup.js" defer></script>
+</head>
+
+<body>
+
+  <!-- header -->
+  <header class="site-header">
+    <nav class="nav-pill" aria-label="Main navigation">
+      <a class="nav-event" href="event.html">event</a>
+      <a class="nav-sns" href="#instagram">sns</a>
+
+      <a class="brand" href="index.html" aria-label="Page On home">
+        <img src="assets/images/layout/logo.svg" alt="Page On">
+      </a>
+
+      <a class="nav-about" href="about.html">about</a>
+      <a class="nav-menu" href="#signature">menu</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top" aria-label="Page On cafe">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="assets/images/videos/main_banner.mp4" type="video/mp4">
+    </video>
+    <div class="hero-shade"></div>
+  </section>
+  <!-- header -->
+
+  <!-- content 1 -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <div class="about-copy">
+        <div class="about-title">
+          <img class="about-title-flower" src="assets/images/main/flower.svg" alt="flower" aria-hidden="true">
+          <h2>About us</h2>
+        </div>
+
+        <p class="about-intro" data-aos="fade-right" data-aos-duration="1200" data-aos-easing="ease-out-cubic"
+          data-aos-delay="200">
+          책과 커피가 머무는 곳,<br>
+          <strong>Page On</strong>
+        </p>
+
+        <div class="about-description">
+          <p data-aos="fade-right" data-aos-duration="1200" data-aos-easing="ease-out-cubic" data-aos-delay="400">빠르게
+            흘러가는 일상 속에서 잠시 멈춰 나만의 시간을 보낼 수 있는 공간을 만들고 싶었습니다.</p>
+          <p data-aos="fade-right" data-aos-duration="1200" data-aos-easing="ease-out-cubic" data-aos-delay="600">Page
+            On은 책 한 권과 따뜻한 커피 한 잔, 그리고 천천히 머물 수 있는 여유를 담은 북카페입니다. 좋아하는 책을 골라 조용히 페이지를 넘기고, 창가에 앉아 커피를 마시며 잠시 쉬어갈 수
+            있습니다.</p>
+        </div>
+
+        <a class="about-button" href="about.html" aria-label="About more">
+          <img src="assets/images/main/button1%20.svg" alt="">
+          <span class="about-button-label">about more</span>
+          <span class="about-button-arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="about-visual">
+        <img class="about-photo" src="assets/images/main/content.png" alt="햇살이 드는 창가에 놓인 책과 커피">
+
+        <img class="about-sprig about-sprig-left" src="assets/images/main/hurb1.svg" alt="hurb1" aria-hidden="true">
+        <img class="about-sprig about-sprig-right" src="assets/images/main/hurb2.svg" alt="hurb2" aria-hidden="true">
+
+        <svg class="about-orbit" viewBox="0 0 380 380" aria-hidden="true">
+          <defs>
+            <path id="about-orbit-path" d="M 190,190 m -155,0 a 155,155 0 1,1 310,0 a 155,155 0 1,1 -310,0" />
+          </defs>
+          <g class="about-orbit-rotator">
+            <text>
+              <textPath href="#about-orbit-path" textLength="950" lengthAdjust="spacing">
+                Page On　Page On　Page On　Page On
+              </textPath>
+            </text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+  <!-- content 1 -->
+
+  <!-- content 2 -->
+  <section class="signature" id="signature">
+    <img class="leaf leaf-left" src="assets/images/main/leaf1.svg" alt="leaf1" aria-hidden="true">
+    <img class="leaf leaf-right" src="assets/images/main/leaf2.svg" alt="leaf2" aria-hidden="true">
+
+    <div class="signature-title-wrap">
+      <h2 class="signature-title">
+        <img class="signature-flower signature-flower-top" src="assets/images/main/flower.svg" alt="" aria-hidden="true">
+        <span>Our Favorite Signature</span>
+        <img class="signature-flower signature-flower-bottom" src="assets/images/main/flower.svg" alt=""
+          aria-hidden="true">
+      </h2>
+    </div>
+
+    <div class="menu-grid">
+      <article class="menu-item">
+        <img src="assets/images/main/catcookie 1.png" alt="Cat shaped chocolate cookie">
+        <h3>Cat cookie</h3>
+      </article>
+      <article class="menu-item">
+        <img src="assets/images/main/chocolatte1.png" alt="Warm chocolate latte">
+        <h3>Choco latte</h3>
+      </article>
+      <article class="menu-item">
+        <img src="assets/images/main/smorecookie1.png" alt="Toasted s'more cookie">
+        <h3>Smore cookie</h3>
+      </article>
+      <article class="menu-item">
+        <img src="assets/images/main/cappuccino1.png" alt="Cappuccino with latte art">
+        <h3>Cappuccino</h3>
+      </article>
+    </div>
+
+    <div class="signature-bottom">
+      <div class="signature-mascot">
+        <img class="signature-cat" src="assets/images/main/cat1.svg" alt="Page On cat mascot">
+        <img class="signature-butterfly" src="assets/images/main/butterfly.svg" alt="" aria-hidden="true">
+      </div>
+
+      <button class="signature-menu-button" type="button" aria-haspopup="dialog" aria-controls="signature-menu-popup">
+        <img src="assets/images/main/button2%20.svg" alt="button2">
+        <span>more menu</span>
+      </button>
+    </div>
+  </section>
+  <!-- content 2 -->
+
+  <!-- content 3 -->
+  <section class="healing" id="find-us">
+    <div class="healing-heading">
+      <h2>
+        <img class="healing-flower" src="assets/images/main/flower.svg" alt="flower" aria-hidden="true">
+        <span>Healing Zone</span>
+      </h2>
+    </div>
+
+    <div class="healing-layout">
+      <div class="place-collage">
+        <img class="place-main" src="assets/images/main/place1.png" alt="Warm cafe interior with bookshelves">
+        <img class="place-top" src="assets/images/main/place2.png" alt="Quiet window seat in the sun">
+        <img class="place-bottom" src="assets/images/main/place3.png" alt="Private corner table at Page On">
+        <img class="sprig" src="assets/images/main/hurb1.svg" alt="" aria-hidden="true">
+      </div>
+
+      <aside class="find-card">
+        <h3>Find Your Place</h3>
+        <p>자연을 봐라보는 테라스부터 아늑한 실내까지, 취향에 맞는 공간을 만나보세요.</p>
+
+        <ol id="healing-zone-list">
+          <li data-aos="fade-right" data-aos-anchor="#healing-zone-list" data-aos-anchor-placement="top-bottom"
+            data-aos-offset="300" data-aos-duration="1200" data-aos-delay="0" data-aos-easing="ease-in-sine">
+            <span>01.</span> Cozy Zone
+          </li>
+          <li style="position: relative; left: 12px;" data-aos="fade-left" data-aos-anchor="#healing-zone-list"
+            data-aos-anchor-placement="top-bottom" data-aos-offset="300" data-aos-duration="1200" data-aos-delay="1200">
+            <span>02.</span> Natural View
+          </li>
+          <li style="position: relative; left: 24px;" data-aos="fade-right" data-aos-anchor="#healing-zone-list"
+            data-aos-anchor-placement="top-bottom" data-aos-offset="300" data-aos-duration="1200" data-aos-delay="1300"
+            data-aos-easing="ease-in-sine">
+            <span>03.</span> Private Room
+          </li>
+        </ol>
+
+        <div class="healing-walk">
+          <div class="healing-paws" aria-hidden="true">
+            <img class="paw paw-1" src="assets/images/main/sole.svg" alt="">
+            <img class="paw paw-2" src="assets/images/main/sole.svg" alt="">
+            <img class="paw paw-3" src="assets/images/main/sole.svg" alt="">
+          </div>
+          <img class="healing-cat" src="assets/images/main/cat_walk_cream.gif" alt="Page On cat walking">
+        </div>
+      </aside>
+    </div>
+  </section>
+  <!-- content 3 -->
+
+
+  <!-- content 4 -->
+  <section class="guidelines section-wrap" id="guidelines">
+    <div class="guidelines-book-wrap">
+      <div class="guidelines-book">
+        <video class="guidelines-video" autoplay muted loop playsinline preload="metadata"
+          aria-label="Page on Guidelines 안내 영상">
+          <source src="assets/images/videos/guidelines.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="guidelines-list">
+      <article class="guide-card">
+        <img class="guide-photo" src="assets/images/main/cafe1.png" alt="카페 공간">
+        <img class="guide-line" src="assets/images/main/shape.svg" alt="" aria-hidden="true">
+        <p data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-offset="0" data-aos-duration="1200"
+          data-aos-delay="0" data-aos-easing="ease-out-cubic" data-aos-once="false">시간 제한 없이 이용 가능한 공간</p>
+      </article>
+
+      <article class="guide-card">
+        <img class="guide-photo" src="assets/images/main/book.png" alt="다양한 장르의 책">
+        <img class="guide-line" src="assets/images/main/shape.svg" alt="" aria-hidden="true">
+        <p data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-offset="0" data-aos-duration="1400"
+          data-aos-delay="0" data-aos-easing="ease-out-cubic" data-aos-once="false">다양한 장르의 책들 마련</p>
+      </article>
+
+      <article class="guide-card">
+        <img class="guide-photo" src="assets/images/main/playlist.png" alt="Page On 플레이리스트">
+        <img class="guide-line" src="assets/images/main/shape.svg" alt="" aria-hidden="true">
+        <p data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-offset="0" data-aos-duration="1600"
+          data-aos-delay="0" data-aos-easing="ease-out-cubic" data-aos-once="false">카페 분위기 음악 제공</p>
+      </article>
+    </div>
+  </section>
+  <!-- content 4 -->
+
+  <!-- content 5 -->
+  <section class="events" id="event">
+    <div class="event-heading">
+      <h2>
+        Event
+        <img src="assets/images/main/flower.svg" alt="flower" aria-hidden="true">
+      </h2>
+    </div>
+
+    <div class="event-grid">
+      <img class="event-cat-logo" src="assets/images/main/symbolelogo.svg" alt="Page On 고양이 심볼">
+
+      <div class="event-item">
+        <a class="event-card" href="#find-us">
+          <img src="assets/images/main/event1.png" alt="고양이 키링 이벤트">
+          <span>고양이 키링 증정</span>
+        </a>
+      </div>
+
+      <div class="event-item">
+        <a class="event-card" href="#signature">
+          <img src="assets/images/main/event2.png" alt="카페 오픈 기념 이벤트">
+          <span>카페 오픈 기념<br>커피 &amp; 쿠키 택 1</span>
+        </a>
+      </div>
+
+      <div class="event-item event-item-with-sprig">
+        <a class="event-card" href="#find-us">
+          <img src="assets/images/main/event3.png" alt="포인트 이벤트">
+          <span>포인트 관련 이벤트</span>
+        </a>
+        <img class="event-sprig" src="assets/images/main/hurb3.svg" alt="hurb3" aria-hidden="true">
+      </div>
+    </div>
+
+    <a class="event-button" href="event.html">
+      <img src="assets/images/main/button3.svg" alt="button3" aria-hidden="true">
+      <span>view event</span>
+    </a>
+  </section>
+  <!-- content 5 -->
+
+  <!-- content 6 -->
+  <section class="brand-banner" aria-label="Page On cafe">
+    <video autoplay muted loop playsinline preload="metadata" aria-label="Page On 브랜드 소개 영상">
+      <source src="assets/images/videos/brand_showcase.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <section class="instagram section-wrap" id="instagram">
+    <div class="section-heading">
+      <h2 class="instagram-title">
+        Instagram
+        <img src="assets/images/main/flower.svg" alt="flower" aria-hidden="true">
+      </h2>
+    </div>
+
+    <div class="insta-grid">
+      <a href="#event">
+        <img src="assets/images/main/making.png" alt="커피를 만드는 모습">
+      </a>
+      <a href="#event">
+        <img src="assets/images/main/keyring.png" alt="Page On 고양이 키링">
+      </a>
+      <a href="#find-us">
+        <img src="assets/images/main/mood.png" alt="Page On 카페 내부">
+      </a>
+      <a href="#signature">
+        <img src="assets/images/main/newmenu.png" alt="Page On 음료와 디저트">
+      </a>
+    </div>
+  </section>
+  <!-- content 6 -->
+
+  <!-- footer -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <section class="footer-column">
+        <h2>ADDRESS</h2>
+        <p>부산광역시 중구 중앙대로 59</p>
+        <p>010-1234-5678</p>
+      </section>
+      <section class="footer-column">
+        <h2>OPENING HOURS</h2>
+        <p>10:00 — 22:00</p>
+        <p class="footer-hours-note">연중무휴</p>
+      </section>
+      <section class="footer-column footer-social">
+        <h2>FOLLOW US</h2>
+        <a href="#instagram">Instagram <img src="assets/images/main/ins.svg" alt="ins"></a>
+        <a href="#find-us">naver <img class="footer-naver-icon" src="assets/images/main/nav.svg" alt="nav"></a>
+      </section>
+    </div>
+    <p class="copyright">이용약관&nbsp; | &nbsp;개인정보처리방침&nbsp; | &nbsp;Copyright© 2026 PAGE ON. ALL RIGHTS RESERVED.</p>
+
+    <video class="footer-cat" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+      <source src="assets/images/videos/cat_walking.mp4?v=footer-scene-20261030" type="video/mp4">
+    </video>
+  </footer>
+  <!-- footer -->
+
+
+  <!-- more menu: 시그니처 메뉴 상세 팝업 -->
+  <dialog class="signature-popup" id="signature-menu-popup" aria-labelledby="signature-popup-label">
+    <form class="signature-popup-close-form" method="dialog">
+      <button class="signature-popup-close" type="submit" aria-label="메뉴 팝업 닫기" autofocus>
+        <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" fill="none">
+          <path d="M6 6 26 26M26 6 6 26" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </button>
+    </form>
+
+    <header class="signature-popup-header">
+      <img class="signature-popup-header-herb" src="assets/images/main/hurb1.svg" alt="hurb1" aria-hidden="true">
+      <p id="signature-popup-label">PAGE ON SIGNATURE</p>
+    </header>
+
+    <div class="signature-popup-content">
+      <img class="signature-popup-image" src="assets/images/main/menu1.png" alt="접시에 담긴 고양이 초코 쿠키" width="1254"
+        height="1254" decoding="async">
+      <section class="signature-popup-details" aria-live="polite" aria-atomic="true">
+        <h2 class="signature-popup-title">Cat Cookie</h2>
+        <p class="signature-popup-description">바삭한 초코 쿠키에<br>Page On의 고양이 얼굴을 담은<br>시그니처 디저트예요.</p>
+        <ul class="signature-popup-tags" aria-label="메뉴 특징">
+          <li>Chocolate</li>
+          <li>Crispy</li>
+          <li>Sweet</li>
+        </ul>
+        <p class="signature-popup-price"><span>Price</span> <span class="signature-popup-price-value">4,600</span></p>
+        <div class="signature-popup-pairing">
+          <p>Best with<br><span class="signature-popup-pairing-name">Americano</span></p>
+          <img class="signature-popup-cat-icon" src="assets/images/main/cat_icon.png" alt="cat_icon" aria-hidden="true">
+        </div>
+      </section>
+    </div>
+
+    <div class="signature-popup-gallery" role="group" aria-label="시그니처 메뉴 선택">
+      <button class="signature-popup-arrow" type="button" data-menu-direction="previous" aria-label="이전 메뉴">
+        <svg viewBox="0 0 24 32" width="24" height="32" aria-hidden="true" fill="none">
+          <path d="m16 5-11 11 11 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      <div class="signature-popup-thumbnails">
+        <button class="signature-popup-thumbnail" type="button" data-menu-index="0" aria-label="Cat Cookie 보기"
+          aria-pressed="true">
+          <img src="assets/images/main/menu1.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+        </button>
+        <button class="signature-popup-thumbnail" type="button" data-menu-index="1" aria-label="Choco Latte 보기"
+          aria-pressed="false">
+          <img src="assets/images/main/menu2.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+        </button>
+        <button class="signature-popup-thumbnail" type="button" data-menu-index="2" aria-label="Smore Cookie 보기"
+          aria-pressed="false">
+          <img src="assets/images/main/menu3.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+        </button>
+        <button class="signature-popup-thumbnail" type="button" data-menu-index="3" aria-label="Cappuccino 보기"
+          aria-pressed="false">
+          <img src="assets/images/main/menu4.png" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+        </button>
+      </div>
+      <button class="signature-popup-arrow" type="button" data-menu-direction="next" aria-label="다음 메뉴">
+        <svg viewBox="0 0 24 32" width="24" height="32" aria-hidden="true" fill="none">
+          <path d="m8 5 11 11L8 27" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="signature-popup-dots" role="group" aria-label="메뉴 페이지 선택">
+      <button class="signature-popup-dot" type="button" data-menu-index="0" aria-label="1번 메뉴 Cat Cookie"
+        aria-pressed="true"></button>
+      <button class="signature-popup-dot" type="button" data-menu-index="1" aria-label="2번 메뉴 Choco Latte"
+        aria-pressed="false"></button>
+      <button class="signature-popup-dot" type="button" data-menu-index="2" aria-label="3번 메뉴 Smore Cookie"
+        aria-pressed="false"></button>
+      <button class="signature-popup-dot" type="button" data-menu-index="3" aria-label="4번 메뉴 Cappuccino"
+        aria-pressed="false"></button>
+    </div>
+  </dialog>
+  <!-- more menu: 시그니처 메뉴 상세 팝업 -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const section = document.querySelector("#find-us");
+      const collage = section?.querySelector(".place-collage");
+
+      if (!section || !collage) return;
+
+      section.classList.add("motion-ready");
+
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          section.classList.remove("is-visible");
+          void collage.offsetWidth; // 애니메이션을 다시 시작하도록 초기화
+          section.classList.add("is-visible");
+        }
+      }, { threshold: 0.15 });
+
+      observer.observe(collage);
+    });
+  </script>
+
+  <!-- Aos jS 연결 -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- AOS 적용 -->
+  <script>
+    AOS.init();
+  </script>
+  <script src="js/mouse-follower.js?v=firefly4" defer></script>
+</body>
+
+</html>
