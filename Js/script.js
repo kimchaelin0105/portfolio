@@ -150,9 +150,8 @@ renderWorks("#reel-list", portfolioContent.reels, "reel");
 
 // 자동 스크롤 속도: 초당 이동할 px 값입니다.
 const autoScrollSettings = [
-  { selector: "#brand-one", works: portfolioContent.brandOne, speed: 24 },
-  { selector: "#brand-two", works: portfolioContent.brandTwo, speed: 24 },
-  { selector: "#visual-list", works: portfolioContent.visual, speed: 22 },
+  { selector: "#visual-list", works: portfolioContent.visual, speed: 22, draggable: true },
+  { selector: "#reel-list", works: portfolioContent.reels, speed: 24 },
 ];
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const scrollingRails = [];
@@ -161,12 +160,12 @@ function wrapScrollDistance(distance, cycleWidth) {
   return cycleWidth > 0 ? ((distance % cycleWidth) + cycleWidth) % cycleWidth : 0;
 }
 
-function setupAutoScroll({ selector, works, speed }) {
+function setupAutoScroll({ selector, works, speed, draggable = false }) {
   const rail = $(selector);
   const originals = Array.from(rail.children);
   if (originals.length < 2) return;
   const section = rail.closest("section");
-  const state = { rail, speed, originals, cycleWidth: 0, distance: 0, hovered: false, focused: false, visible: true, holdUntil: 0 };
+  const state = { rail, speed, originals, cycleWidth: 0, distance: 0, hovered: false, focused: false, visible: true, holdUntil: 0, pointerHeld: false };
 
   function duplicateCard(original, index) {
     const copy = original.cloneNode(true);
@@ -177,7 +176,8 @@ function setupAutoScroll({ selector, works, speed }) {
     copy.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
     copy.querySelectorAll("a, button, [tabindex]").forEach(node => { node.tabIndex = -1; });
     // cloneNode는 팝업 클릭 이벤트를 복사하지 않으므로 다시 연결합니다.
-    if (copy.tagName === "BUTTON") copy.addEventListener("click", () => openWork(works[index], copy));
+    const trigger = copy.tagName === "BUTTON" ? copy : copy.querySelector(".reel-card");
+    if (trigger?.tagName === "BUTTON") trigger.addEventListener("click", () => openWork(works[index], trigger, selector === "#reel-list"));
     copy.querySelectorAll("video").forEach(video => { video.muted = true; video.defaultMuted = true; });
     return copy;
   }
@@ -207,7 +207,7 @@ function setupAutoScroll({ selector, works, speed }) {
   rail.addEventListener("pointerenter", event => { if (event.pointerType !== "touch") state.hovered = true; });
   rail.addEventListener("pointerleave", () => { state.hovered = false; });
   rail.addEventListener("focusin", event => {
-    state.focused = true;
+    state.focused = !state.pointerHeld && event.target.matches(":focus-visible");
     const index = originals.findIndex(card => card === event.target || card.contains(event.target));
     if (index < 0) return;
     const box = originals[index].getBoundingClientRect();
@@ -218,12 +218,74 @@ function setupAutoScroll({ selector, works, speed }) {
     }
   });
   rail.addEventListener("focusout", event => { state.focused = rail.contains(event.relatedTarget); });
-  rail.addEventListener("pointerdown", event => { if (event.pointerType === "touch") state.holdUntil = Infinity; });
-  for (const name of ["pointerup", "pointercancel"]) rail.addEventListener(name, () => { state.holdUntil = performance.now() + 3000; });
+  if (draggable) {
+    rail.classList.add("is-draggable");
+    let drag = null;
+    let suppressClickUntil = 0;
+    rail.addEventListener("dragstart", event => event.preventDefault());
+    rail.addEventListener("pointerdown", event => {
+      if (event.button !== 0) return;
+      state.pointerHeld = true;
+      state.holdUntil = Infinity;
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, distance: state.distance, active: false };
+    });
+    rail.addEventListener("pointermove", event => {
+      if (!drag || drag.id !== event.pointerId) return;
+      const dx = event.clientX - drag.x;
+      const dy = event.clientY - drag.y;
+      if (!drag.active && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+        drag.active = true;
+        rail.setPointerCapture(event.pointerId);
+        rail.classList.add("is-dragging");
+      }
+      if (!drag.active) return;
+      event.preventDefault();
+      state.distance = wrapScrollDistance(drag.distance - dx, state.cycleWidth);
+      paint();
+    });
+    function finishDrag(event) {
+      if (!drag || drag.id !== event.pointerId) return;
+      if (drag.active) suppressClickUntil = performance.now() + 400;
+      if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
+      drag = null;
+      state.pointerHeld = false;
+      state.holdUntil = performance.now() + 2500;
+      rail.classList.remove("is-dragging");
+    }
+    window.addEventListener("pointerup", finishDrag);
+    window.addEventListener("pointercancel", finishDrag);
+    window.addEventListener("blur", () => { if (drag) finishDrag({ pointerId: drag.id }); });
+    rail.addEventListener("click", event => {
+      if (performance.now() < suppressClickUntil) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }, true);
+    rail.addEventListener("wheel", event => {
+      const delta = event.deltaX || (event.shiftKey ? event.deltaY : 0);
+      if (!delta) return;
+      event.preventDefault();
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerWidth : 1;
+      state.distance = wrapScrollDistance(state.distance + delta * unit, state.cycleWidth);
+      state.holdUntil = performance.now() + 2500;
+      paint();
+    }, { passive: false });
+  } else {
+    rail.addEventListener("pointerdown", () => { state.holdUntil = Infinity; state.pointerHeld = true; });
+    const release = () => { if (state.pointerHeld) { state.pointerHeld = false; state.holdUntil = performance.now() + 1500; } };
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    window.addEventListener("blur", release);
+  }
   scrollingRails.push(state);
 }
 
 autoScrollSettings.forEach(setupAutoScroll);
+document.querySelectorAll(".branding .rail-wrap").forEach((viewport, index) => {
+  viewport.tabIndex = 0;
+  viewport.setAttribute("role", "region");
+  viewport.setAttribute("aria-label", `브랜딩 ${index + 1} 작업물 가로 스크롤`);
+});
 let previousScrollTime;
 function animateRails(now) {
   const elapsed = previousScrollTime === undefined ? 0 : Math.min((now - previousScrollTime) / 1000, 0.05);
