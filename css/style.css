@@ -361,7 +361,35 @@ a:focus-visible {
 }
 
 .rail-wrap {
-    position: relative
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 110px 0 12px;
+    margin-top: -110px;
+    scrollbar-width: auto;
+    scrollbar-color: #ddbcf5 #f0e2fa;
+}
+
+.rail-wrap:hover {
+    scrollbar-color: #c79be7 #f0e2fa;
+}
+
+.rail-wrap::-webkit-scrollbar {
+    height: 10px;
+}
+
+.rail-wrap::-webkit-scrollbar-track {
+    background: #f0e2fa;
+    border-radius: 10px;
+}
+
+.rail-wrap::-webkit-scrollbar-thumb {
+    background: #ddbcf5;
+    border-radius: 10px;
+}
+
+.rail-wrap::-webkit-scrollbar-thumb:hover {
+    background: #c79be7;
 }
 
 /* 한 줄 트랙: 자동 스크롤 위치는 Js/script.js에서 제어합니다. */
@@ -571,6 +599,20 @@ a:focus-visible {
     will-change: transform;
 }
 
+.is-draggable {
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+}
+
+.is-draggable .visual-card {
+    cursor: inherit;
+}
+
+.is-draggable.is-dragging {
+    cursor: grabbing;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .auto-scroll-track {
         will-change: auto;
@@ -610,6 +652,7 @@ a:focus-visible {
 }
 
 .reels {
+    overflow: hidden;
     min-height: 0;
     height: auto;
     padding: 100px 0 180px;
@@ -636,15 +679,17 @@ a:focus-visible {
 }
 
 .reel-rail {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 364px));
-    justify-content: center;
-    gap: 150px 21px;
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    gap: 21px;
     padding: 0 8px
 }
 
 .reel-item {
     position: relative;
+    flex: 0 0 364px;
+    width: 364px;
     min-width: 0
 }
 
